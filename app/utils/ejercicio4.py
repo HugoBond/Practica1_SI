@@ -27,18 +27,18 @@ def grafico_media_tiempo_cambio_cont():
     users['fecha'] = pd.to_datetime(users['fecha'],dayfirst=True)  
     media_x_usuario = users.groupby(['usuario', 'permisos'])['fecha'].mean().dt.day
     media_x_usuario = media_x_usuario.groupby('permisos').mean()
-    media_x_usuario.plot(kind='bar', color=['blue', 'red'])
-    plt.title('Media de tiempo entre cambios de contraseña por tipo de usuario')
-    plt.xlabel('Tipo de usuario')
-    plt.ylabel('Media de tiempo (días)')
-    plt.xticks([0, 1], ['Usuarios Normales', 'Administradores'], rotation=45)
-    plt.show()
+    # media_x_usuario.plot(kind='bar', color=['blue', 'red'])
+    # plt.title('Media de tiempo entre cambios de contraseña por tipo de usuario')
+    # plt.xlabel('Tipo de usuario')
+    # plt.ylabel('Media de tiempo (días)')
+    # plt.xticks([0, 1], ['Usuarios Normales', 'Administradores'], rotation=45)
+    # plt.show()
     return {
-        "title" : "Los 10 usuarios más críticos",
-        "xlabel" : "Usernames",
-        "ylabel" : "Mails clicados",
-        "xdata" : critical_users['username'].to_list(),
-        "values" : critical_users['cliclados'].to_list()
+        "title" : "Media de tiempo entre cambios de contraseña por tipo de usuario",
+        "xlabel" : "Tipo de usuario",
+        "ylabel" : "Media de tiempo (dias)",
+        "xdata" : ['Usuarios Normales', 'Administradores'],
+        "values" : media_x_usuario.to_list()
     }
 
 def grafico_webs_con_mas_politicas():

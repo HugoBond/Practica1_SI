@@ -5,7 +5,7 @@ from os import path
 
 from utils.ejercicio2 import ejercicio2_data
 from utils.ejercicio3 import ejercicio3_data
-from utils.ejercicio4 import grafico_usuarios_mas_criticos
+from utils.ejercicio4 import grafico_usuarios_mas_criticos, grafico_media_tiempo_cambio_cont
 
 filepath = path.dirname(path.abspath(__file__))
 LEGAL_DATA_PATH = f"{filepath}/../../datos/legal_data_online.json"
@@ -130,4 +130,4 @@ class ETL:
         return ejercicio3_data()
     
     def getEjercicio4Data(self):
-        return grafico_usuarios_mas_criticos()
+        return [grafico_usuarios_mas_criticos(), grafico_media_tiempo_cambio_cont()]

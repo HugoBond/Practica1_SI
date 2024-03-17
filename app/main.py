@@ -5,6 +5,7 @@ from utils.etl import ETL
 app = Flask(__name__)
 app.jinja_env.globals.update(type=type)
 app.jinja_env.globals.update(lista=list)
+app.jinja_env.globals.update(enumerate=enumerate)
 
 etl = ETL()
 
@@ -28,7 +29,7 @@ def ejercicio3():
 
 @app.route('/4')
 def ejercicio4():
-    data = [etl.getEjercicio4Data()]
+    data = etl.getEjercicio4Data()
     return render_template('plotGrafico.html', data=data)
 
 @app.route('/uml')
