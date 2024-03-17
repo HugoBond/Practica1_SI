@@ -41,8 +41,19 @@ def grafico_media_tiempo_cambio_cont():
         "values" : media_x_usuario.to_list()
     }
 
+
 def grafico_webs_con_mas_politicas():
-    webs = pd.read_sql_query("SELECT creacion FROM legal INNER JOIN usuarios ON emails.usuario = usuarios.username ORDER BY emails.cliclados DESC", connector)
+    webs = pd.read_sql_query("SELECT * FROM legal", connector)
+    webs['politicas_desactualizadas'] = (webs[['cookies', 'aviso', 'proteccion_de_datos']] == 0).sum(axis=1).astype(int)
+    # Seleccionar las 5 páginas web con más políticas desactualizadas
+    top_webs_politicas_desactualizadas = webs.nlargest(5, 'politicas_desactualizadas')
+    # Visualizar en un gráfico de barras
+    plt.bar(top_webs_politicas_desactualizadas['web'], top_webs_politicas_desactualizadas['politicas_desactualizadas'])
+    plt.xlabel('Página Web')
+    plt.ylabel('Número de Políticas Desactualizadas')
+    plt.title('Top 5 Páginas Web con más Políticas Desactualizadas')
+    plt.xticks(rotation=45)
+    plt.show()
 
 
 
@@ -62,6 +73,8 @@ def grafico_cumplimiento_politicas_por_ano():
             cumplen[ano] = 0
         if ano not in no_cumplen.keys():
             no_cumplen[ano] = 0
-    
-
+    cumplen = dict(sorted(cumplen.items()))
+    no_cumplen = dict(sorted(no_cumplen.items()))
+    print(cumplen)
+    print(no_cumplen)
 grafico_cumplimiento_politicas_por_ano()
