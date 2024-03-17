@@ -2,20 +2,11 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama bpmn</title>
 
-    <!-- viewer distro (without pan and zoom) -->
-    <!--
-    <script src="https://unpkg.com/bpmn-js@17.0.2/dist/bpmn-viewer.development.js"></script>
-    -->
-
-    <!-- required viewer styles -->
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.0.2/dist/assets/bpmn-js.css">
-
-    <!-- viewer distro (with pan and zoom) -->
     <script src="https://unpkg.com/bpmn-js@17.0.2/dist/bpmn-navigated-viewer.development.js"></script>
-
-    <!-- needed for this example only -->
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
 
     <!-- example styles -->
@@ -48,35 +39,23 @@
 
     <script>
 
-      var diagramUrl = "{{url_for('static', filename='bmpn.xml')}}";
+      var diagramUrl = "{{url_for('static', filename='diagrama.bpmn')}}";
 
-      // viewer instance
       var bpmnViewer = new BpmnJS({
         container: '#canvas'
       });
 
 
-      /**
-       * Open diagram in our viewer instance.
-       *
-       * @param {String} bpmnXML diagram to display
-       */
       async function openDiagram(bpmnXML) {
-
-        // import diagram
         try {
 
           await bpmnViewer.importXML(bpmnXML);
 
-          // access viewer components
           var canvas = bpmnViewer.get('canvas');
           var overlays = bpmnViewer.get('overlays');
 
-
-          // zoom to fit full viewport
           canvas.zoom('fit-viewport');
 
-          // attach an overlay to a node
           overlays.add('SCAN_OK', 'note', {
             position: {
               bottom: 0,
@@ -85,7 +64,6 @@
             html: '<div class="diagram-note">Mixed up the labels?</div>'
           });
 
-          // add marker
           canvas.addMarker('SCAN_OK', 'needs-discussion');
         } catch (err) {
 
@@ -93,8 +71,6 @@
         }
       }
 
-
-      // load external diagram file via AJAX and open it
       $.get(diagramUrl, openDiagram, 'text');
     </script>
   </body>
