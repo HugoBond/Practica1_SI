@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <title>Ejercicio 4</title>
+</head>
+<body>
+    {% for chart in data %}
+    <canvas id="lineChart" width="900" height="400"></canvas>
+    <script>
+        var ctx = document.getElementById("lineChart").getContext("2d")
+        var lineChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: {{ chart['xdata'] | safe }},
+                datasets: [
+                    {
+                        label: "{{chart.title}}",
+                        data: {{ chart['values'] | safe }},
+                        fill: false,
+                        lineTension: 0.1,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 50)',
+                        borderWidth: 2,
+                        borderRadius: 5,
+                        borderSkipped: false,
+                    }
+                ]
+            },
+            options: {
+                responsive: false,
+                x: {
+                    display: true, 
+                    title: {
+                        display: true,
+                        text: "{{chart['xlabel']}}",
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "{{chart['ylabel']}}",
+                    }
+                },
+            }
+        });
+    </script>
+    {% endfor %}
+</body>
+</html>

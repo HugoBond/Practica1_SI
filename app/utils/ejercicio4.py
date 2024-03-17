@@ -1,18 +1,25 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from ejercicio2 import connector
-from ejercicio3 import RAINBOWTABLE
+from utils.ejercicio2 import connector
+from utils.ejercicio3 import RAINBOWTABLE
 
 
 def grafico_usuarios_mas_criticos():
     users = pd.read_sql_query("SELECT username,contrasena,cliclados FROM emails INNER JOIN usuarios ON emails.usuario = usuarios.username ORDER BY emails.cliclados DESC",connector)
     critical_users = users[users['contrasena'].isin(RAINBOWTABLE.keys())][['cliclados','username']][:10]
-    plt.figure(figsize=(16, 6))
-    plt.bar(critical_users['username'], critical_users['cliclados'])
-    plt.xlabel("Usernames")
-    plt.ylabel("Mails clicados")
-    plt.title("Los 10 usuarios más críticos")
-    plt.show()
+    # plt.figure(figsize=(16, 6))
+    # plt.bar(critical_users['username'], critical_users['cliclados'])
+    # plt.xlabel("Usernames")
+    # plt.ylabel("Mails clicados")
+    # plt.title("Los 10 usuarios más críticos")
+    # plt.show()
+    return {
+        "title" : "Los 10 usuarios más críticos",
+        "xlabel" : "Usernames",
+        "ylabel" : "Mails clicados",
+        "xdata" : critical_users['username'].to_list(),
+        "values" : critical_users['cliclados'].to_list()
+    }
 
 
 def grafico_media_tiempo_cambio_cont():
@@ -26,7 +33,13 @@ def grafico_media_tiempo_cambio_cont():
     plt.ylabel('Media de tiempo (días)')
     plt.xticks([0, 1], ['Usuarios Normales', 'Administradores'], rotation=45)
     plt.show()
-
+    return {
+        "title" : "Los 10 usuarios más críticos",
+        "xlabel" : "Usernames",
+        "ylabel" : "Mails clicados",
+        "xdata" : critical_users['username'].to_list(),
+        "values" : critical_users['cliclados'].to_list()
+    }
 
 def grafico_webs_con_mas_politicas():
     webs = pd.read_sql_query("SELECT creacion FROM legal INNER JOIN usuarios ON emails.usuario = usuarios.username ORDER BY emails.cliclados DESC", connector)
@@ -49,5 +62,3 @@ def grafico_cumplimiento_politicas_por_ano():
     plt.ylabel('Cantidad de sitios web')
     plt.legend(title='Cumplimiento de políticas de privacidad')
     plt.show()
-
-grafico_cumplimiento_politicas_por_ano()

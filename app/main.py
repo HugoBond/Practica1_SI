@@ -15,15 +15,17 @@ def index():
 @app.route('/2')
 def ejercicio2():
     data = etl.getEjercicio2Data()
-    print(data)
     return render_template('plotDatos.html', data=data, num=2)
 
 @app.route('/3')
 def ejercicio3():
     data = etl.getEjercicio3Data()
-    print(data)
     return render_template('plotDatos.html', data=data, num=3)
 
+@app.route('/4')
+def ejercicio4():
+    data = [etl.getEjercicio4Data()]
+    return render_template('plotGrafico.html', data=data)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)
