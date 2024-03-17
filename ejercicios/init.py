@@ -119,5 +119,3 @@ class ETL:
 
 if __name__ == "__main__":
     etl = ETL()
-
-    print(etl.cursor.execute('SELECT emails FROM usuarios;').fetchall())
