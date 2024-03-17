@@ -46,19 +46,13 @@ def grafico_webs_con_mas_politicas():
 
 
 
+
 def grafico_cumplimiento_politicas_por_ano():
     webs = pd.read_sql_query("SELECT * FROM legal", connector)
     cumplen = webs[webs.proteccion_de_datos == 1][webs.aviso == 1][webs.cookies == 1]
-    no_cumplen = webs[webs.proteccion_de_datos == 0][webs.aviso == 0][webs.cookies == 0]
-    df = pd.DataFrame({'Cumplen': cumplen, 'No_Cumplen': no_cumplen})
+    no_cumplen = pd.read_sql_query("SELECT * FROM legal WHERE cookies = 0 OR proteccion_de_datos = 0 OR aviso = 0", connector)
+    lista_años =  list(set(webs['creacion'].sort_values()))
+    lista_años.sort()
 
-    # Ordenar por año de creación
-    df.sort_index(inplace=True)
-
-    # Visualizar en un gráfico de barras
-    df.plot(kind='bar', stacked=True)
-    plt.title('Sitios web que cumplen vs. no cumplen las políticas de privacidad por año de creación')
-    plt.xlabel('Año de creación')
-    plt.ylabel('Cantidad de sitios web')
-    plt.legend(title='Cumplimiento de políticas de privacidad')
-    plt.show()
+    print(cumplen.groupby('creacion')['web'].count())
+    print(no_cumplen.groupby('creacion')['web'].count())
