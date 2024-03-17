@@ -19,7 +19,7 @@ def main():
     # Numero de muestras 
     sample = pd.read_sql_query("SELECT * from usuarios INNER JOIN emails ON emails.usuario = usuarios.username INNER JOIN fechas ON fechas.usuario = usuarios.username INNER JOIN ips ON ips.usuario=usuarios.username",connector)
     sample.replace('None', None, inplace=True)
-    sample.dropna(inplace=True)
+    sample.dropna(subset=sample.columns, axis=0, inplace=True)
     print(len(sample))
 
     # Media y desviación estándar del total de fechas en las que se ha cambiado la contraseña
