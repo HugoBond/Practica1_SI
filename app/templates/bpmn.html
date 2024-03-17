@@ -1,0 +1,12 @@
+<script src=" https://cdn.jsdelivr.net/npm/bpmn-js@17.0.2/dist/bpmn-modeler.production.min.js "></script>
+<link href=" https://cdn.jsdelivr.net/npm/bpmn-js@17.0.2/dist/assets/diagram-js.min.css " rel="stylesheet">
+
+<script>
+    const viewer = new BpmnJS({ container: 'body' });
+  
+    try {
+      await viewer.importXML("{{url_for('static', filename='bpmn.xml')}}");
+    } catch (err) {
+      console.error('error loading BPMN 2.0 XML', err);
+    }
+</script>

@@ -12,6 +12,10 @@ etl = ETL()
 def index():
     return render_template('index.html')
 
+@app.route('/1')
+def ejercicio1():
+    return render_template('ejercicio1.html')
+
 @app.route('/2')
 def ejercicio2():
     data = etl.getEjercicio2Data()
@@ -26,6 +30,15 @@ def ejercicio3():
 def ejercicio4():
     data = [etl.getEjercicio4Data()]
     return render_template('plotGrafico.html', data=data)
+
+@app.route('/uml')
+def uml():
+    return render_template('uml.html')
+
+@app.route('/bpmn')
+def bpmn():
+    return render_template('bpmn.html')
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)
