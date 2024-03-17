@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from ejercicio2 import connector
-from ejercicio3 import RAINBOWTABLE
+from utils.ejercicio2 import connector
+from utils.ejercicio3 import RAINBOWTABLE
 
 
 def grafico_usuarios_mas_criticos():
@@ -48,12 +48,19 @@ def grafico_webs_con_mas_politicas():
     # Seleccionar las 5 páginas web con más políticas desactualizadas
     top_webs_politicas_desactualizadas = webs.nlargest(5, 'politicas_desactualizadas')
     # Visualizar en un gráfico de barras
-    plt.bar(top_webs_politicas_desactualizadas['web'], top_webs_politicas_desactualizadas['politicas_desactualizadas'])
-    plt.xlabel('Página Web')
-    plt.ylabel('Número de Políticas Desactualizadas')
-    plt.title('Top 5 Páginas Web con más Políticas Desactualizadas')
-    plt.xticks(rotation=45)
-    plt.show()
+    # plt.bar(top_webs_politicas_desactualizadas['web'], top_webs_politicas_desactualizadas['politicas_desactualizadas'])
+    # plt.xlabel('Página Web')
+    # plt.ylabel('Número de Políticas Desactualizadas')
+    # plt.title('Top 5 Páginas Web con más Políticas Desactualizadas')
+    # plt.xticks(rotation=45)
+    # plt.show()
+    return {
+        "title" : "Top 5 Páginas Web con más Políticas Desactualizadas",
+        "xlabel" : "Pagina Web",
+        "ylabel" : "Número de políticas desactualizadas",
+        "values" : top_webs_politicas_desactualizadas['politicas_desactualizadas'].to_list(),
+        "xdata" : top_webs_politicas_desactualizadas['web'].to_list()
+    }
 
 
 
@@ -70,11 +77,20 @@ def grafico_cumplimiento_politicas_por_ano():
     
     for ano in lista_años:
         if ano not in cumplen.keys():
-            cumplen[ano] = 0
+            cumplen[ano] = 0.1
         if ano not in no_cumplen.keys():
-            no_cumplen[ano] = 0
+            no_cumplen[ano] = 0.1
     cumplen = dict(sorted(cumplen.items()))
     no_cumplen = dict(sorted(no_cumplen.items()))
-    print(cumplen)
-    print(no_cumplen)
+    return {
+        "c_title" : "Webs que cumplen las normativas de privacidad por año.",
+        "n_title" : "Webs que no cumplen con las normativas de privacidad por año.",
+        "xlabel" : "Años",
+        "ylabel" : "Cantidad de webs",
+        "xdata" : lista_años,
+        "cumplen" : list(cumplen.values()),
+        "no_cumplen" : list(no_cumplen.values())
+    }
+
+
 grafico_cumplimiento_politicas_por_ano()

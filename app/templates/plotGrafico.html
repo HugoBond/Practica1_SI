@@ -52,5 +52,60 @@
         });
     </script>
     {% endfor %}
+
+    <h2>{{ special['c_title'] }}</h2>
+    <canvas id="lineSpecial" width="900" height="400"></canvas>
+    <script>
+        var ctx = document.getElementById("lineSpecial").getContext("2d")
+        var linespecial = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: {{ special['xdata'] | safe }},
+                datasets: [
+                    {
+                        label: "{{special.c_title}}",
+                        data: {{ special['cumplen'] | safe }},
+                        fill: false,
+                        lineTension: 0.1,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 50)',
+                        borderWidth: 2,
+                        borderRadius: 5,
+                        borderSkipped: false,
+                        barThickness: 15,
+                    },
+                    {
+                        label: "{{special.n_title}}",
+                        data: {{ special['no_cumplen'] | safe }},
+                        fill: false,
+                        lineTension: 0.1,
+                        borderColor: 'rgb(240, 248, 255)',
+                        backgroundColor: 'rgba(240, 248, 255, 50)',
+                        borderWidth: 2,
+                        borderRadius: 5,
+                        borderSkipped: false,
+                        barThickness: 15,
+                    }
+                ]
+            },
+            options: {
+                responsive: false,
+                x: {
+                    display: true, 
+                    title: {
+                        display: true,
+                        text: "{{special['xlabel']}}",
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "{{special['ylabel']}}",
+                    }
+                },
+            }
+        });
+    </script>
 </body>
 </html>

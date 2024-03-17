@@ -29,8 +29,8 @@ def ejercicio3():
 
 @app.route('/4')
 def ejercicio4():
-    data = etl.getEjercicio4Data()
-    return render_template('plotGrafico.html', data=data)
+    data, especial = etl.getEjercicio4Data()
+    return render_template('plotGrafico.html', data=data, special=especial)
 
 @app.route('/uml')
 def uml():
