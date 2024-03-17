@@ -12,6 +12,7 @@ class ETL:
         
         if self.__create_tables():
             self.__insert_data()
+            self.connector.commit()
 
     
     def __create_tables(self) -> bool:
@@ -19,7 +20,7 @@ class ETL:
         Private: Create the tables if they are not created
         """
         query_find_tables = "SELECT name FROM sqlite_master WHERE \
-            name='usuarios' AND name ='legal';"
+            name='usuarios';"
         res = self.cursor.execute(query_find_tables)
         if res.fetchone() is None:
             # Tabla legal
