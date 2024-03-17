@@ -116,6 +116,3 @@ class ETL:
                                 VALUES (?, ?);''',
                                 (username, ip)
                             )
-
-if __name__ == "__main__":
-    etl = ETL()
