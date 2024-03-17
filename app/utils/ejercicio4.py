@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from utils.ejercicio2 import connector
-from utils.ejercicio3 import RAINBOWTABLE
+from ejercicio2 import connector
+from ejercicio3 import RAINBOWTABLE
 
 
 def grafico_usuarios_mas_criticos():
@@ -54,5 +54,14 @@ def grafico_cumplimiento_politicas_por_ano():
     lista_años =  list(set(webs['creacion'].sort_values()))
     lista_años.sort()
 
-    print(cumplen.groupby('creacion')['web'].count())
-    print(no_cumplen.groupby('creacion')['web'].count())
+    cumplen = cumplen.groupby('creacion')['web'].count().to_dict()
+    no_cumplen = no_cumplen.groupby('creacion')['web'].count().to_dict()
+    
+    for ano in lista_años:
+        if ano not in cumplen.keys():
+            cumplen[ano] = 0
+        if ano not in no_cumplen.keys():
+            no_cumplen[ano] = 0
+    
+
+grafico_cumplimiento_politicas_por_ano()
