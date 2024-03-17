@@ -1,9 +1,14 @@
 from __future__ import annotations
 import json
 import sqlite3
+from os import path
 
-LEGAL_DATA_PATH = '../datos/legal_data_online.json'
-USERS_DATA_PATH = '../datos/users_data_online.json'
+from utils.ejercicio2 import ejercicio2_data
+from utils.ejercicio3 import ejercicio3_data
+
+filepath = path.dirname(path.abspath(__file__))
+LEGAL_DATA_PATH = f"{filepath}/../../datos/legal_data_online.json"
+USERS_DATA_PATH = f"{filepath}/../../datos/users_data_online.json"
 
 class ETL:
     def __init__(self) -> None:
@@ -116,3 +121,9 @@ class ETL:
                                 VALUES (?, ?);''',
                                 (username, ip)
                             )
+    
+    def getEjercicio2Data(self):
+        return ejercicio2_data()
+    
+    def getEjercicio3Data(self):
+        return ejercicio3_data()

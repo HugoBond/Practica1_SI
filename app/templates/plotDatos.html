@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=6, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <title>Ejercicio {{num}}</title>
+</head>
+<body>
+    {% for item in data %}
+        {% for key, value in item.items() %}
+            {% if type(value) == lista %}
+                <h2>{{key}}</h2>
+                <ul>
+                {% for _item in value %}
+                    {% for k, v in _item.items() %}
+                        <li>{{k}} : {{v}}</li>
+                    {% endfor %}
+                {% endfor %}
+                </ul>
+            {% else %}
+                <h2>{{key}} : {{value}}</h2>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>
